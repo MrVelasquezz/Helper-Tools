@@ -92,9 +92,11 @@ async function connect() {
                                     last_max_id = max_id
                                     if (item.fromId && item.fromId.userId == participant_id && item.message && item.message.includes(what_to_search)) {
     
-                                        const card = item.message.match(/Карта: [0-9|/]+ /g)[0].replace('Карта:', '').replace('/', '|').trim()
+                                        // was made to collect user membership cards. not to scrap credit cards!!!!
+                                        
+                                        /*const card = item.message.match(/Карта: [0-9|/]+ /g)[0].replace('Карта:', '').replace('/', '|').trim()
                                         const name = item.message.match(/Имя: ([A-Z]+( +)?)+/g)[0].replace('Имя:', '').trim()
-                                        list.add(`${card} ${name}`)
+                                        list.add(`${card} ${name}`)*/
     
                                         return `[${new Date(item.date).toUTCString()}] ${item.fromId.userId}:${item.id} ${item.message}`
                                     }
