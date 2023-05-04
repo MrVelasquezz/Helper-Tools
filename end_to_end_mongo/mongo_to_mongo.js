@@ -17,6 +17,7 @@ class CopyEndToEnd {
             this.client = new mongo(this.to)
             await this.client.connect()
             const mongoClient = this.client.db(this.db)
+            // ? uncomment, if inserting full db
             /*const inserted = await mongoClient.collection(this.collection)
                 .insertMany(this.data)
             if (inserted && inserted.insertedCount) {
@@ -24,16 +25,18 @@ class CopyEndToEnd {
             } else {
                 throw new NoElementsInDb("No elements were inserted")
             }*/
+            // ? if updating only existing values
             /*let updated_c = 0 
             for(const data of this.data){
                 const updated = await mongoClient.collection(this.collection)
-                    .updateOne({land_code: data.land_code}, {$set: data}, {upsert: true})
+                    .updateOne({land_code: data.land_code}, {$set: data})
                 
                 if(updated && updated.modifiedCount){
                     updated_c++
                 }
             }
             console.log("Updated %d of %d elements", updated_c, this.data.length)*/
+            // ? if inserting only values which are not existing
             const existing = await mongoClient.collection(this.collection)
                 .find({}).toArray()
             let inserted_c = 0
